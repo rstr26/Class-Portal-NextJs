@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import { Button, Grid, Input, Paper, TextField } from '@mui/material'
-import { Icon, Button as SemanticBtn } from 'semantic-ui-react'
+import { Button, Paper, TextField } from '@mui/material'
+import { Icon } from 'semantic-ui-react'
+import { Alert } from '@/components/shared'
 
 export default function Home() {
   return (
@@ -20,7 +21,15 @@ export default function Home() {
 
           <TextField label='Username' variant='outlined' sx={{marginTop: '20px'}} /><br />
           <TextField label='Password' variant='outlined' sx={{marginTop: '20px'}} type='password' /><br/>
-          <Button variant='contained' sx={{marginTop: '20px'}}>Log In</Button>
+          <Button 
+            variant='contained' 
+            sx={{marginTop: '20px'}} 
+            onClick={() => 
+              Alert('info', 'Under Development', "Web page is currently on development. Please stay still. :)", 5000)
+            }
+          >
+            Log In
+          </Button>
 
           <div style={{position: 'absolute', bottom: '50px', fontStyle: 'italic'}}>
             <p>This website is for personal project purposes only.</p>
