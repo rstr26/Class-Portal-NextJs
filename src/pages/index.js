@@ -4,8 +4,35 @@ import styles from '@/styles/Home.module.css'
 import { Button, Paper, TextField } from '@mui/material'
 import { Icon } from 'semantic-ui-react'
 import { Alert } from '@/components/shared'
+import { useState } from 'react'
 
 export default function Home() {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleLogIn = async () => {
+    const body = {
+      username: username,
+      password: password,
+    }
+
+    const res = await fetch('/api/hello', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body),
+    })
+    
+    if(res.status === 200) {
+      Alert('success', 'Log In Success', 'You have successfully logged in.', 5000)
+      console.log(await res.json())
+    }
+    else {
+      Alert('error', 'Log In Failed', 'Invalid username or password.', 5000)
+    }
+  }
+
   return (
     <>
       <Head>
@@ -19,14 +46,25 @@ export default function Home() {
         <Paper elevation={5} className={styles.logInPaper}>
           <h1>Log In to Class Portal.</h1>
 
-          <TextField inputProps={{ maxLength: 14 }} label='Username' variant='outlined' sx={{marginTop: '20px'}} /><br />
-          <TextField inputProps={{ maxLength: 14 }} label='Password' variant='outlined' sx={{marginTop: '20px'}} type='password' /><br/>
+          <TextField 
+            inputProps={{ maxLength: 14 }} 
+            label='Username' 
+            variant='outlined' 
+            sx={{marginTop: '20px'}}
+            onChange={(e) => setUsername(e.target.value)} 
+          /><br />
+          <TextField 
+            inputProps={{ maxLength: 14 }} 
+            label='Password' 
+            variant='outlined' 
+            sx={{marginTop: '20px'}} 
+            type='password' 
+            onChange={(e) => setPassword(e.target.value)}
+          /><br/>
           <Button 
             variant='contained' 
             sx={{marginTop: '20px'}} 
-            onClick={() => 
-              Alert('info', 'Under Development', "Web page is currently on development. Please stay still. :)", 5000)
-            }
+            onClick={() => handleLogIn()}
           >
             Log In
           </Button>
