@@ -1,34 +1,38 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import { Button, Paper, TextField } from '@mui/material'
-import { Icon } from 'semantic-ui-react'
+import { Paper, TextField } from '@mui/material'
+import { Icon, Button } from 'semantic-ui-react'
 import { Alert } from '@/components/shared'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { Login } from '@/misc/api/requests'
 
 export default function Home() {
+  const router = useRouter()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [buttonLoading, setButtonLoading] = useState(false)
 
   const handleLogIn = async () => {
-    const body = {
-      username: username,
-      password: password,
-    }
-
-    const res = await fetch('/api/hello', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body),
-    })
+    setButtonLoading(true)
+    let login = await Login(username, password)
+    let { role } = await login.json()
     
-    if(res.status === 200) {
+    if(login.status === 200) {
+      setButtonLoading(false)
       Alert('success', 'Log In Success', 'You have successfully logged in.', 5000)
-      console.log(await res.json())
+      
+      if(role === 'teacher'){
+        router.replace('/instructor')
+      }
+      else if(role === 'student'){
+        router.replace('/student')
+      }
     }
     else {
+      setButtonLoading(false)
       Alert('error', 'Log In Failed', 'Invalid username or password.', 5000)
     }
   }
@@ -62,8 +66,10 @@ export default function Home() {
             onChange={(e) => setPassword(e.target.value)}
           /><br/>
           <Button 
-            variant='contained' 
-            sx={{marginTop: '20px'}} 
+            primary
+            style={{marginTop: '20px'}} 
+            loading={buttonLoading}
+            disabled={buttonLoading}
             onClick={() => handleLogIn()}
           >
             Log In
