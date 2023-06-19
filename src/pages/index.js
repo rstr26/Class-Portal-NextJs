@@ -1,11 +1,44 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import { Button, Paper, TextField } from '@mui/material'
-import { Icon } from 'semantic-ui-react'
+import { Paper, TextField } from '@mui/material'
+import { Icon, Button } from 'semantic-ui-react'
 import { Alert } from '@/components/shared'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { Login } from '@/misc/api/requests'
 
 export default function Home() {
+  const router = useRouter()
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [buttonLoading, setButtonLoading] = useState(false)
+
+  const handleLogIn = async () => {
+    setButtonLoading(true)
+    let login = await Login(username, password)
+    let { role } = await login.json()
+    
+    if(login.status === 200) {
+      setButtonLoading(false)
+      Alert('success', 'Log In Success', 'You have successfully logged in.', 5000)
+      
+      if(role === 'teacher'){
+        router.replace('/instructor')
+      }
+      else if(role === 'student'){
+        router.replace('/student')
+      }
+    }
+    else {
+      setUsername('')
+      setPassword('')
+      setButtonLoading(false)
+      Alert('error', 'Log In Failed', 'Invalid username or password.', 5000)
+    }
+  }
+
   return (
     <>
       <Head>
@@ -19,14 +52,29 @@ export default function Home() {
         <Paper elevation={5} className={styles.logInPaper}>
           <h1>Log In to Class Portal.</h1>
 
-          <TextField inputProps={{ maxLength: 14 }} label='Username' variant='outlined' sx={{marginTop: '20px'}} /><br />
-          <TextField inputProps={{ maxLength: 14 }} label='Password' variant='outlined' sx={{marginTop: '20px'}} type='password' /><br/>
-          <Button 
-            variant='contained' 
+          <TextField 
+            inputProps={{ maxLength: 14 }} 
+            label='Username' 
+            variant='outlined' 
+            sx={{marginTop: '20px'}}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)} 
+          /><br />
+          <TextField 
+            inputProps={{ maxLength: 14 }} 
+            label='Password' 
+            variant='outlined' 
             sx={{marginTop: '20px'}} 
-            onClick={() => 
-              Alert('info', 'Under Development', "Web page is currently on development. Please stay still. :)", 5000)
-            }
+            type='password' 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          /><br/>
+          <Button 
+            primary
+            style={{marginTop: '20px'}} 
+            loading={buttonLoading}
+            disabled={buttonLoading}
+            onClick={() => handleLogIn()}
           >
             Log In
           </Button>
