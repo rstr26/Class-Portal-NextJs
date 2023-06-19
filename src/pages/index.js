@@ -32,6 +32,8 @@ export default function Home() {
       }
     }
     else {
+      setUsername('')
+      setPassword('')
       setButtonLoading(false)
       Alert('error', 'Log In Failed', 'Invalid username or password.', 5000)
     }
@@ -55,6 +57,7 @@ export default function Home() {
             label='Username' 
             variant='outlined' 
             sx={{marginTop: '20px'}}
+            value={username}
             onChange={(e) => setUsername(e.target.value)} 
           /><br />
           <TextField 
@@ -63,6 +66,7 @@ export default function Home() {
             variant='outlined' 
             sx={{marginTop: '20px'}} 
             type='password' 
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           /><br/>
           <Button 

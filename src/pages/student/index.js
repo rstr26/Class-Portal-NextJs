@@ -1,8 +1,13 @@
+import Sidebar from '@/components/Sidebar'
 import React from 'react'
 
 const index = () => {
   return (
-    <div>Students' Landing Page</div>
+    <React.Fragment>
+      <Sidebar type='student'>
+        <h1>Hello Im the Student Page</h1>
+      </Sidebar>
+    </React.Fragment>
   )
 }
 
