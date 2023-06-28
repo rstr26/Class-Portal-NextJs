@@ -7,6 +7,9 @@ body{
   margin: 0;
   height: 100%;
 }
+.ui.container{
+  margin-top: 25px !important;
+}
 
 @media (prefers-color-scheme: dark) {
   html {
