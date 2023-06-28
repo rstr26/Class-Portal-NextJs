@@ -1,15 +1,17 @@
 import { Alert } from '@/components/shared'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Login } from '@/misc/api/requests'
+import { Login, AuthenticateToken } from '@/misc/api/requests'
 import LogInPage from '@/components/LogInPage'
 import Cookies from 'js-cookie'
+import Loader from '@/components/Loader'
 
 export default function Home() {
   const router = useRouter()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(true)
   const [buttonLoading, setButtonLoading] = useState(false)
 
   const handleLogIn = async () => {
@@ -45,6 +47,33 @@ export default function Home() {
       setPassword(val)
     }
   }
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const authenticate = async () => {
+      let auth = await AuthenticateToken(Cookies.get('accessToken'))
+      let { role } = await auth.json()
+      
+      if(auth.status === 200) {
+        if(role === 'teacher') {
+          setLoading(false)
+          router.replace('/instructor')
+        }
+        else {
+          setLoading(false)
+          router.replace('/student')
+        }
+      }
+      else{
+        setLoading(false)
+        Cookies.remove('accessToken')
+      }
+    }
+
+    authenticate()
+  }, [])
+
+  if(loading) return <Loader text='Loading, please wait...'/>
 
   return (
     <>
