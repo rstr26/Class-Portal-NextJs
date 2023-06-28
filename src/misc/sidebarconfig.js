@@ -1,22 +1,27 @@
 export const instructor = [
     {
         icon: 'home',
-        content: 'Home'
+        content: 'Home',
+        pathname: '/instructor'
     },
     {
         icon: 'list ol',
-        content: 'Students List'
+        content: 'Students List',
+        pathname: '/instructor/students-list'
     },
     {
         icon: 'clock outline',
-        content: 'Pending for Enrollment'
+        content: 'Pending for Enrollment',
+        pathname: '/instructor/pending-for-enrollment'
     },
     {
         icon: 'computer',
-        content: 'Enroll Student'
+        content: 'Enroll Student',
+        pathname: '/instructor/enroll-student'
     },
     {
         icon: 'write',
-        content: 'Encode Grades'
+        content: 'Encode Grades',
+        pathname: '/instructor/encode-grades'
     }
 ]

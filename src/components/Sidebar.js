@@ -3,10 +3,21 @@ import React from 'react'
 import { Icon, Popup } from 'semantic-ui-react'
 import { instructor } from '@/misc/sidebarconfig'
 import { useRouter } from 'next/router'
+import { Confirm } from './shared'
+import Cookies from 'js-cookie'
 
 const Sidebar = ({ children, type }) => {
     const router = useRouter()
 
+    const handleLogOut = () => {
+        Confirm('question', 'Log Out', 'Are you sure you want to log out?')
+        .then((result) => {
+            if(result.isConfirmed) {
+                Cookies.remove('accessToken')
+                router.replace('/')
+            }
+        })
+    }
     return (
     <div style={{display: 'flex', flexDirection: 'row'}} >
         <Paper 
@@ -16,15 +27,12 @@ const Sidebar = ({ children, type }) => {
                 width: {
                     md: '8%',
                     xs: '18%'
-                }, 
-                marginRight: {
-                    md: '60px',
-                    xs: '15px'
                 },
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                paddingTop: '40px'
+                paddingTop: '40px',
+                // position: 'fixed',
             }}
         >
             {type === 'instructor' ? (
@@ -35,9 +43,10 @@ const Sidebar = ({ children, type }) => {
                             trigger={
                                 <Icon 
                                     size='big' 
-                                    color='blue' 
+                                    color={item.pathname === router.pathname ? 'blue' : 'grey'}
                                     name={item.icon}
                                     link 
+                                    onClick={() => router.push(item.pathname)}
                                     style={{marginBottom: '60px'}}
                                 />
                             }
@@ -58,7 +67,7 @@ const Sidebar = ({ children, type }) => {
                         color='blue'
                         name='log out'
                         link
-                        onClick={() => router.replace('/')}
+                        onClick={() => handleLogOut()}
                         style={{marginTop: 'auto', marginBottom: '30px'}}
                     />
                 }

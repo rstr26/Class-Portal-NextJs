@@ -15,3 +15,19 @@ export const Alert = (icon, title, text, duration) => {
         timer: duration
     })
 }
+
+/** Sweet Alert Confirm Component
+ * @param {string} icon - Icon to be displayed
+ * @param {string} title - Title of the alert
+ * @param {string} text - Text of the alert
+ */
+export const Confirm = (icon, title, text) => {
+    return Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    })
+}
