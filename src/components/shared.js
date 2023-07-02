@@ -1,3 +1,4 @@
+import { AuthToken } from "@/misc/api/requests";
 import Swal from "sweetalert2";
 
 /** Sweet Alert Component
@@ -30,4 +31,23 @@ export const Confirm = (icon, title, text) => {
         confirmButtonText: 'Yes',
         cancelButtonText: 'No'
     })
+}
+
+/** Authorize Access to Page
+ * @param {string} token - Access Token
+ */
+export const Authorize = async (token) => {
+    if(!token){
+        return 'unauthorized'
+    }
+
+    let auth = await AuthToken(token)
+    let { message, role } = await auth.json()
+    
+    if(message === 'Forbidden'){
+        return 'forbidden'
+    }
+    else if(message === 'Authorized'){
+        return { role: role }
+    }
 }

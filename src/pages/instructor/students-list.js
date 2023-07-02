@@ -1,7 +1,10 @@
 import Sidebar from '@/components/Sidebar'
 import React from 'react'
+import { useRouter } from 'next/router'
 
 const StudentsList = () => {
+  const router = useRouter()
+
   return (
     <React.Fragment>
         <Sidebar type='instructor'>

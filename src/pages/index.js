@@ -1,7 +1,7 @@
 import { Alert } from '@/components/shared'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Login, AuthenticateToken } from '@/misc/api/requests'
+import { Login, AuthToken } from '@/misc/api/requests'
 import LogInPage from '@/components/LogInPage'
 import Cookies from 'js-cookie'
 import Loader from '@/components/Loader'
@@ -51,14 +51,14 @@ export default function Home() {
   // Check if user is already logged in
   useEffect(() => {
     const authenticate = async () => {
-      let auth = await AuthenticateToken(Cookies.get('accessToken'))
+      let auth = await AuthToken(Cookies.get('accessToken'))
       let { role } = await auth.json()
       
       if(auth.status === 200) {
         if(role === 'teacher') {
           setLoading(false)
           router.replace('/instructor')
-        }
+        } 
         else {
           setLoading(false)
           router.replace('/student')
