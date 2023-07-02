@@ -10,11 +10,11 @@ export async function Login(username, password) {
     return res;
 }
 
-/** Authenticate Token
+/** Authenticate / Authorize Token
  * @param {string} token - Access Token
  */
-export async function AuthenticateToken(token) {
-    const res = await fetch('/api/authorize', APIReqConfigToken('POST', token, {}));
+export async function AuthToken(token) {
+    const res = await fetch('/api/auth', APIReqConfigToken('POST', token, {}));
 
     return res;
 }
