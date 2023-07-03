@@ -1,6 +1,5 @@
 import Sidebar from '@/components/Sidebar'
 import { Alert, Authorize } from '@/components/shared'
-import { AuthToken } from '@/misc/api/requests'
 import { Grid, Paper } from '@mui/material'
 import Cookies from 'js-cookie'
 import React, { useEffect } from 'react'
@@ -31,7 +30,7 @@ const index = () => {
     <Sidebar type='instructor'>
       <Container>
         {/* Stats Grid */}
-        <Grid container columns={3} columnSpacing={2}>
+        <Grid container columns={3} columnSpacing={2} rowSpacing={1}>
           <Grid item xs={3} md={1}>
             <Paper elevation={3} sx={{padding: '10px'}}>
               <h3>Subject</h3>
