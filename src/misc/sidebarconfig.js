@@ -25,3 +25,11 @@ export const instructor = [
         pathname: '/instructor/encode-grades'
     }
 ]
+
+export const student = [
+    {
+        icon: 'home',
+        content: 'Home',
+        pathname: '/student'
+    }
+]
