@@ -165,7 +165,7 @@ const Sidebar = ({ children, type }) => {
             {/* Bottom drawer toggler, hidden on medium and up devices */}
             <Box
                 sx={{
-                    position: 'absolute',
+                    position: 'fixed',
                     bottom: 0,
                     right: 0,
                     marginRight: '20px',
