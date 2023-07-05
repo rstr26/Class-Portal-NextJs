@@ -1,7 +1,6 @@
 import Sidebar from '@/components/Sidebar'
-import { Alert, Authorize } from '@/components/shared'
+import { Alert } from '@/components/shared'
 import { Grid, Paper } from '@mui/material'
-import Cookies from 'js-cookie'
 import React, { useEffect } from 'react'
 import { Button, Container } from 'semantic-ui-react'
 import { useRouter } from 'next/router'

@@ -23,6 +23,11 @@ export const instructor = [
         icon: 'write',
         content: 'Encode Grades',
         pathname: '/instructor/encode-grades'
+    },
+    {
+        icon: 'announcement',
+        content: 'Announcement',
+        pathname: '/instructor/announcement'
     }
 ]
 
@@ -31,5 +36,20 @@ export const student = [
         icon: 'home',
         content: 'Home',
         pathname: '/student'
+    },
+    {
+        icon: 'react',
+        content: 'Subjects',
+        pathname: '/student/subjects'
+    },
+    {
+        icon: 'chart bar',
+        content: 'Grades',
+        pathname: '/student/grades'
+    },
+    {
+        icon: 'announcement',
+        content: 'Announcement',
+        pathname: '/student/announcement'
     }
 ]

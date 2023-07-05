@@ -4,6 +4,7 @@ import { Authorize, Alert } from '@/components/shared'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import RequireAuth from '@/components/RequireAuth'
+import { Container } from 'semantic-ui-react'
 
 const index = () => {
   const router = useRouter()
@@ -11,7 +12,9 @@ const index = () => {
   return (
     <RequireAuth>
       <Sidebar type='student'>
-        <h1>Hello Im the Student Page</h1>
+        <Container>
+          <h1>Hello Im the Student Page</h1>
+        </Container>
       </Sidebar>
     </RequireAuth>
   )
