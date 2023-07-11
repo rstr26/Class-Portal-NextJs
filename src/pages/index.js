@@ -5,14 +5,17 @@ import { Login, AuthToken } from '@/misc/api/requests'
 import LogInPage from '@/components/LogInPage'
 import Cookies from 'js-cookie'
 import Loader from '@/components/Loader'
+import { Button } from 'semantic-ui-react'
 
 export default function Home() {
   const router = useRouter()
+  const environment = process.env.NEXT_PUBLIC_ENVIRONMENT
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(true)
   const [buttonLoading, setButtonLoading] = useState(false)
+
 
   const handleLogIn = async () => {
     setButtonLoading(true)
@@ -84,6 +87,8 @@ export default function Home() {
         handleLogIn={handleLogIn}
         handleInput={(val, type) => handleInput(val, type)}
       />
+
+      <Button onClick={() => console.log(environment)}>Log</Button>
     </>
   )
 }
