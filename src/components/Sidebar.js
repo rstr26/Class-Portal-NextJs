@@ -39,6 +39,7 @@ const Sidebar = ({ children, type }) => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     paddingTop: '40px',
+                    position: 'fixed'
                 }}
             >
                 {/* If user is instructor, show instructor menu item */}
